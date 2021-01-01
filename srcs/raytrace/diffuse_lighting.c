@@ -104,7 +104,7 @@ t_frgba	*get_diffuse_color(t_frgba *color, t_intersection *intersection,
 	add_colors(color, scene->ambient.color, scene->ambient.strength);
 	ray.origin = intersection->intersection;
 	aux = intersection->normal;
-	add_vec3(&ray.origin, *scale_vec3(&aux, MINIRT_EPSILON));
+	add_vec3(&ray.origin, *scale_vec3(&aux, 0.000001));
 	loop_lights(color, intersection, scene, &ray);
 	loop_p_lights(color, intersection, scene, &ray);
 	apply_color_disruptions(color, &intersection->normal,

@@ -59,7 +59,7 @@ void	average_components(t_ray *ray, t_intersection *intersection,
 			.objects[obj_id].material->refraction_indice, scene->objects.objects
 			.objects[obj_id].material->spec_k, intersection);
 	intersection->intersection = old_intersection;
-	if (fresnel > 1e-2)
+	if (fresnel > 100 * DBL_EPSILON)
 		get_specular_color(&spec, ray, intersection, scene);
 	mix_colors(ray, scene->objects.objects.objects[obj_id].material->color, 1);
 	get_diffuse_color(&diff, intersection, scene,
