@@ -13,6 +13,8 @@
 #ifndef COMMON_H
 # define COMMON_H
 
+# define MINIRT_EPSILON 1e-10
+
 typedef struct s_vec3 {
 	double				x;
 	double				y;

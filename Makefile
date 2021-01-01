@@ -6,7 +6,7 @@ RM = rm -rf
 AFLAGS = -lXext -lX11 -lm -lpthread -flto=thin
 BUILDFLAGS = -mllvm -polly
 OPTIMIZATION = -O3 -fno-stack-protector \
--fno-math-errno -funsafe-math-optimizations -fno-rounding-math -fassociative-math -freciprocal-math \
+-fno-math-errno -funsafe-math-optimizations -fassociative-math -freciprocal-math \
 -funroll-loops -ftree-vectorize -finline-functions -ffp-contract=fast
 NAME = miniRT
 SRC =	srcs/lists/list_size.c \

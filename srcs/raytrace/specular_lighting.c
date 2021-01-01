@@ -26,7 +26,7 @@ t_frgba	*get_specular_color(t_frgba *color, t_ray *incident,
 		* vec3_scalar(incident->direction, intersection->normal)));
 	normalize_vec3(&reflect.direction);
 	aux0 = reflect.direction;
-	add_vec3(&reflect.origin, *scale_vec3(&aux0, 0.000000001));
+	add_vec3(&reflect.origin, *scale_vec3(&aux0, MINIRT_EPSILON));
 	reflect.color.red = incident->color.red;
 	reflect.color.green = incident->color.green;
 	reflect.color.blue = incident->color.blue;
