@@ -1,0 +1,8 @@
+*.o
+callgrind.out.*
+tmp
+CMakeLists.txt
+cmake-build-debug
+.git.old
+.idea
+miniRT
