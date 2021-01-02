@@ -38,7 +38,7 @@ wait
 header "Program name is 'miniRT'"
 debug ls .
 wait
-#make fast >/dev/null
+make fast
 
 step scenes/grademe/empty.rt "Empty scene" 0
 step scenes/grademe/small_window.rt "Small window" 0
