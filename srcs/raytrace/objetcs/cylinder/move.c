@@ -15,9 +15,12 @@
 void	move_cylinder(t_vec3 translation, t_vec3 rotation,
 	t_any_obj *obj)
 {
+	double	tmp;
+
 	add_vec3(&obj->cylinder->position, translation);
 	rotation.x *= -1;
+	tmp = rotation.y;
 	rotation.y = -rotation.z;
-	rotation.z = 0;
+	rotation.z = tmp;
 	rotate_vec3(&obj->cylinder->axis, rotation);
 }

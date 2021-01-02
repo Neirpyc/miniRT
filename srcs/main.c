@@ -6,11 +6,10 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 23:30:35 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 23:23:20 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 15:59:22 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "gc_malloc/gc_malloc.h"
 #include "parse/parse.h"
 #include "window/window.h"
@@ -21,6 +20,7 @@
 int	main(int argc, char **argv)
 {
 	t_render	*rd;
+	int			tc;
 
 	rd = new_render(parse(argc, argv));
 	gc_add_cb(gc_free, rd);
@@ -33,8 +33,9 @@ int	main(int argc, char **argv)
 	gc_add_cb(close_window, NULL);
 	gc_add_cb((void (*)(void *))free_scene, rd->scene);
 	gc_add_cb((void (*)(void *))free_img_buffer, NULL);
-	gc_add_cb((void (*)(void *))stop_threads, NULL);
-	start_rendering_threads(get_nprocs(), rd->scene);
+	tc = get_nprocs();
+	gc_add_cb((void (*)(void *))stop_threads, (void *)(long long)tc);
+	start_rendering_threads(tc, rd->scene);
 	render(&rd->scene->cameras.cameras.array[rd->cam_id]);
 	if (rd->scene->save == 0)
 		loop_window(rd);

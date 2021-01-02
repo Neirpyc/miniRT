@@ -54,3 +54,11 @@ inline void	get_best_intersection(t_scene *scene, t_ray *ray,
 	scene->objects.objects.objects[*i].functions.intersect(ray, in,
 		&scene->objects.objects.objects[*i].object);
 }
+
+inline void	ray_set_dir(t_ray *ray, t_vec3 *dir)
+{
+	ray->direction = *dir;
+	ray->invdir.x = 1 / dir->x;
+	ray->invdir.y = 1 / dir->y;
+	ray->invdir.z = 1 / dir->z;
+}

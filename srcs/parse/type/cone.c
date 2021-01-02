@@ -21,7 +21,7 @@ static t_location	parse_first_part(size_t *pos, t_location *loc,
 
 	ret = parse_position(line, pos, &cone->position);
 	err_line(line, gen_loc(loc, *pos, 1, 1), ret);
-	parse_rotation(line, pos, &cone->direction);
+	ret = parse_rotation(line, pos, &cone->direction);
 	err_line(line, gen_loc(loc, *pos, 2, 2), ret);
 	ret = parse_float_0inf(line, pos, &cone->height);
 	err_line(line, gen_loc(loc, *pos, 3, 3), ret);

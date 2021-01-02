@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 12:04:22 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 17:42:28 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 15:59:51 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,10 @@ t_camera	*g_camera = (t_camera *) 0x01;
 
 void	render(t_camera *cam)
 {
-	pthread_mutex_lock(&g_start_render_mutex);
 	g_camera = cam;
-	g_asleep_threads = 0;
 	g_current_point = 0;
-	pthread_cond_broadcast(&g_start_render_cond);
-	pthread_mutex_unlock(&g_start_render_mutex);
-	pthread_mutex_lock(&g_render_done_mutex);
-	while (g_asleep_threads != g_thread_count)
-		pthread_cond_wait(&g_render_done_cond, &g_render_done_mutex);
-	pthread_mutex_unlock(&g_render_done_mutex);
+	pthread_barrier_wait(&g_render_start_barrier);
+	pthread_barrier_wait(&g_render_stop_barrier);
 	flush_window_buffer();
 }
 

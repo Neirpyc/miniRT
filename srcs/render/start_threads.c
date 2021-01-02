@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 11:16:28 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 17:43:26 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 15:57:50 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,32 @@
 #include "../errors/errors.h"
 
 pthread_t			*g_threads = NULL;
-pthread_cond_t		g_start_render_cond = PTHREAD_COND_INITIALIZER;
-pthread_cond_t		g_render_done_cond = PTHREAD_COND_INITIALIZER;
-pthread_mutex_t		g_start_render_mutex = PTHREAD_MUTEX_INITIALIZER;
-pthread_mutex_t		g_render_done_mutex = PTHREAD_MUTEX_INITIALIZER;
-atomic_int			g_asleep_threads = 0;
 atomic_long			g_current_point = -1;
-int					g_thread_count;
 
 static inline int	thread_wait(t_scene *scene)
 {
-	pthread_mutex_lock(&g_start_render_mutex);
-	while (1)
-	{
-		if (g_camera == NULL)
-		{
-			pthread_mutex_unlock(&g_start_render_mutex);
-			return (-1);
-		}
-		if (g_current_point < 0 || g_current_point
-			>= scene->resolution.width * scene->resolution.height)
-			pthread_cond_wait(&g_start_render_cond, &g_start_render_mutex);
-		else
-			break ;
-	}
-	pthread_mutex_unlock(&g_start_render_mutex);
+	(void)scene;
+	pthread_barrier_wait(&g_render_start_barrier);
+	if (g_camera == NULL)
+		return (-1);
 	return (1);
+}
+
+static inline int	do_render_from_c(t_scene *scene, long c)
+{
+	long	j;
+
+	j = 0;
+	while (j < CHUNK_PX)
+	{
+		if (c >= scene->resolution.width * scene->resolution.height)
+			return (1);
+		raytrace_pixel((int)(c % (ssize_t)scene->resolution.width),
+			(int)(c / (ssize_t)scene->resolution.width), scene, g_camera);
+		j++;
+		c++;
+	}
+	return (0);
 }
 
 void	*render_thread(t_scene *scene)
@@ -55,17 +55,12 @@ void	*render_thread(t_scene *scene)
 			return (NULL);
 		while (1)
 		{
-			c = atomic_fetch_add_explicit(&g_current_point, 1,
+			c = atomic_fetch_add_explicit(&g_current_point, CHUNK_PX,
 					__ATOMIC_SEQ_CST);
-			if (c >= scene->resolution.width * scene->resolution.height)
+			if (do_render_from_c(scene, c) == 1)
 				break ;
-			raytrace_pixel((int)(c % (ssize_t)scene->resolution.width),
-				(int)(c / (ssize_t)scene->resolution.width), scene, g_camera);
 		}
-		pthread_mutex_lock(&g_render_done_mutex);
-		g_asleep_threads++;
-		pthread_cond_signal(&g_render_done_cond);
-		pthread_mutex_unlock(&g_render_done_mutex);
+		pthread_barrier_wait(&g_render_stop_barrier);
 	}
 }
 
@@ -76,7 +71,8 @@ void	start_rendering_threads(int count, t_scene *scene)
 
 	if (g_threads == NULL)
 	{
-		g_thread_count = count;
+		pthread_barrier_init(&g_render_start_barrier, NULL, count + 1);
+		pthread_barrier_init(&g_render_stop_barrier, NULL, count + 1);
 		g_threads = gc_malloc(sizeof(pthread_t) * count);
 		i = 0;
 		while (i < count)

@@ -58,5 +58,7 @@ void			rotate_xp(t_render *rd);
 void			rotate_xm(t_render *rd);
 void			rotate_np(t_render *rd);
 void			rotate_nm(t_render *rd);
+void			rotate_ym(t_render *rd);
+void			rotate_yp(t_render *rd);
 
 #endif

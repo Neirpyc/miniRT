@@ -1,12 +1,12 @@
 CC = clang
-CFLAGS = -Wall -Wextra -g -I./minilibx-linux
+CFLAGS = -Wall -Wextra -Werror -I./minilibx-linux
 LD = ld
 MAKE = make
 RM = rm -rf
 AFLAGS = -lXext -lX11 -lm -lpthread -flto=thin
 BUILDFLAGS = -mllvm -polly
 OPTIMIZATION = -O3 -fno-stack-protector \
--fno-math-errno -funsafe-math-optimizations -fno-rounding-math -fassociative-math -freciprocal-math \
+-fno-math-errno -funsafe-math-optimizations -fassociative-math -freciprocal-math \
 -funroll-loops -ftree-vectorize -finline-functions -ffp-contract=fast
 NAME = miniRT
 SRC =	srcs/lists/list_size.c \
@@ -162,6 +162,7 @@ SRC =	srcs/lists/list_size.c \
         srcs/render/movement/translate_0.c \
         srcs/render/movement/movement.c \
         srcs/render/movement/rotate_0.c \
+        srcs/render/movement/rotate_1.c \
         srcs/render/start_threads.c \
         srcs/render/render.c \
         srcs/render/switch_cameras.c \
@@ -237,6 +238,9 @@ benchmark: $(TMP)/benchmark.rt $(TMP)/$(NAME)
 	@$(RM) $(TMP)/frame.bmp
 	@cd $(TMP) && time -p ./miniRT benchmark.rt --save
 
+grademe: assets/grademe.sh
+	@assets/grademe.sh
+
 $(TMP)/benchmark.rt: $(TMP)
 	@cp assets/benchmark.rt $(TMP)
 
@@ -252,4 +256,4 @@ $(EMB) : %.o: %.bin
 $(MLX) :
 	cd minilibx-linux && $(MAKE)
 
-.PHONY: all clean fclean re cleantmp slow fast benchmark
+.PHONY: all clean fclean re cleantmp slow fast benchmark grademe

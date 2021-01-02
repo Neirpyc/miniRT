@@ -25,7 +25,7 @@ static int	parse_n_dbl(char *str, size_t *pos, double *dbl)
 		return (0);
 	while (*pos != 0 && !ft_isspace(str[*pos]) && str[*pos] != ',')
 		(*pos)--;
-	(*pos)++;
+	(*pos)--;
 	return (ERRCODE_EXP_DBL_11);
 }
 

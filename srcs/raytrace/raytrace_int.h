@@ -37,8 +37,8 @@ typedef struct s_ray {
 
 void					raytrace_pixel(int x, int y,
 	t_scene *scene, t_camera *cam);
-int				bounding_box_intersect(t_bounding_box *bb, t_ray
-*ray, double best_t) __attribute__((hot, pure, always_inline));
+int						bounding_box_intersect(t_bounding_box *bb,
+	t_ray *ray, double best_t) __attribute__((hot, pure, always_inline));
 void					points_to_bb(t_bounding_box *bb, t_vec3 pts[4]);
 
 t_vec3					*add_vec3(
@@ -57,6 +57,7 @@ void					init_frgba_new_ray(t_frgba *c);
 void					empty_frgba(t_frgba *c);
 void					get_best_intersection(t_scene *scene, t_ray *ray,
 	t_intersection *in, size_t *i);
+void					ray_set_dir(t_ray *ray, t_vec3 *dir);
 
 t_frgba					*get_diffuse_color(
 	t_frgba *color,

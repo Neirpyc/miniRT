@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 22:33:01 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 19:46:22 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 16:01:06 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,12 @@ const t_interaction_func	g_functions[] = {next_camera, prev_camera,
 							 rotate_xm, rotate_xp,
 							 rotate_nm, rotate_np,
 							 mode_object, mode_camera,
-							 next_object, prev_object};
+							 next_object, prev_object, rotate_ym, rotate_yp};
 const int					g_keys[] = {XK_Page_Up, XK_Page_Down, XK_z,
 						 				XK_s, XK_q, XK_d, XK_Shift_L,
-						 				XK_Control_L, XK_Return, XK_t, XK_g,
-						 				XK_f, XK_h, XK_o, XK_c, XK_p, XK_m};
+						 				XK_Control_L, XK_space, XK_t, XK_g,
+						 				XK_f, XK_h, XK_o, XK_c, XK_p, XK_m,
+						 				XK_u, XK_j};
 
 static int	button_press(int keycode, void *param)
 {
@@ -91,7 +92,7 @@ static int	button_press(int keycode, void *param)
 
 static int	x_exit(void *param)
 {
-	return (button_press(0xFF1B, param));
+	return (button_press(XK_Escape, param));
 }
 
 void	loop_window(t_render *rd)

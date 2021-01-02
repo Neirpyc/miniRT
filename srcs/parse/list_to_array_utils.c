@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 19:09:52 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 19:12:22 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 16:32:22 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	fill_funcs(t_objects *objs, void (*gf)(t_funcs *), size_t i)
 		gf(&objs->objects.objects[objs->objects.size - c - 1].functions);
 		objs->objects.objects[objs->objects.size - c - 1].material
 			= objs->objects.objects[objs->objects.size - c - 1].functions
-				.get_material(&objs->objects.objects[objs->objects.size - c - 1]
+			.get_material(&objs->objects.objects[objs->objects.size - c - 1]
 				.object);
 		objs->objects.objects[objs->objects.size - c - 1].functions.
 			bounding_box(&objs->objects.objects[objs->objects.size - c - 1]

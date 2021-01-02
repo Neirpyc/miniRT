@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 22:45:57 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 18:31:12 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/01 19:45:08 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	add_square(t_list_scene *scene, t_cube *cube, t_vec3 n)
 	square->material = cube->material;
 	square->normal = n;
 	square->side = cube->side;
-	scale_vec3(&n, 0.5);
 	square->corner = cube->center;
 	vec3_sub_noret(&square->corner, n);
 	process_square(square);

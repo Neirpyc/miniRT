@@ -19,7 +19,7 @@ static t_location	parse_first_part(size_t *pos, t_location *loc,
 
 	ret = parse_position(line, pos, &cube->center);
 	err_line(line, gen_loc(loc, *pos, 1, 1), ret);
-	parse_rotation(line, pos, &cube->normal);
+	ret = parse_rotation(line, pos, &cube->normal);
 	err_line(line, gen_loc(loc, *pos, 2, 2), ret);
 	ret = parse_float_0inf(line, pos, &cube->side);
 	err_line(line, gen_loc(loc, *pos, 3, 3), ret);

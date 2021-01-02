@@ -78,7 +78,7 @@ void	parse_camera(t_list *lines, size_t line_nb,
 	}
 	else
 	{
-		cam->bounces = 3;
+		cam->bounces = 1;
 		cam->sub_pixels = 1;
 		err_line(line, gen_loc(&loc, *pos, 4, 4), parse_endl(line, pos));
 	}

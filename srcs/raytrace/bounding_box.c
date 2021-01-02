@@ -23,8 +23,8 @@ void	points_to_bb(t_bounding_box *bb, t_vec3 pts[4])
 	bb->z.max = fmax(fmax(fmax(pts[3].z, pts[2].z), pts[1].z), pts[0].z);
 }
 
-inline int	bounding_box_intersect(t_bounding_box *bb, t_ray *ray, double 
-best_t)
+inline int	bounding_box_intersect(t_bounding_box *bb, t_ray *ray,
+	double best_t)
 {
 	t_min_max	tx;
 	t_min_max	t;

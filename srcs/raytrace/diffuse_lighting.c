@@ -6,11 +6,10 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/13 18:14:16 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 23:47:28 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 16:35:16 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <float.h>
 #include <math.h>
 #include "raytrace_int.h"
 #include "disruptions/disruptions.h"
@@ -34,6 +33,8 @@ inline static int	loop_objects(t_scene *scene, t_ray *ray, double distance)
 		scene->objects.objects.objects[j].functions.intersect(ray, &in,
 			&scene->objects.objects.objects[j].object);
 		dst = norm_vec3(*vec3_sub(&in.intersection, ray->origin));
+		if (dst < 1e-10)
+			continue ;
 		if (dst <= distance)
 			return (0);
 	}
@@ -56,6 +57,7 @@ static inline void	loop_lights(t_frgba *color,	t_intersection *intersection,
 			continue ;
 		distance = norm_vec3(ray->direction);
 		scale_vec3(&ray->direction, 1. / distance);
+		ray_set_dir(ray, &ray->direction);
 		if (loop_objects(scene, ray, distance) == 1)
 		{
 			add_colors(color, scene->lights.lights.array[i].color,
@@ -86,6 +88,7 @@ static inline void	loop_p_lights(t_frgba *color, t_intersection *intersection,
 		scale_vec3(&ray->direction, dst);
 		dst = norm_vec3(ray->direction);
 		scale_vec3(&ray->direction, 1. / dst);
+		ray_set_dir(ray, &ray->direction);
 		if (loop_objects(scene, ray, dst) == 1)
 		{
 			add_colors(color, scene->p_lights.p_lights.array[i].color,
@@ -104,7 +107,7 @@ t_frgba	*get_diffuse_color(t_frgba *color, t_intersection *intersection,
 	add_colors(color, scene->ambient.color, scene->ambient.strength);
 	ray.origin = intersection->intersection;
 	aux = intersection->normal;
-	add_vec3(&ray.origin, *scale_vec3(&aux, 0.000001));
+	add_vec3(&ray.origin, *scale_vec3(&aux, 0.1));
 	loop_lights(color, intersection, scene, &ray);
 	loop_p_lights(color, intersection, scene, &ray);
 	apply_color_disruptions(color, &intersection->normal,

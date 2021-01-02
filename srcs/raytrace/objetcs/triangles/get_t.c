@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 21:35:12 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/30 16:02:58 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 16:23:55 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ double	triangle_get_t(t_ray *ray,
 	s = ray->origin;
 	vec3_sub_noret(&s, obj->triangle->corner);
 	u = a * vec3_scalar(s, h);
-	if (u < 0 || u > 1)
+	if (u < 1e-5 || u > 1 - 1e-5)
 		return (NAN);
 	vec3_cross(&s, obj->triangle->edge1);
 	v = a * vec3_scalar(ray->direction, s);
-	if (v < 0 || u + v > 1)
+	if (v < 1e-5 || u + v > 1 - 1e-5)
 		return (NAN);
 	intersection->intersection.x = a * vec3_scalar(obj->triangle->edge2, s);
-	if (intersection->intersection.x < 1e-1)
+	if (intersection->intersection.x < 1e-5)
 		return (NAN);
 	return (intersection->intersection.x);
 }

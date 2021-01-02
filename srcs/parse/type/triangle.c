@@ -32,7 +32,7 @@ static t_location	parse_first_part(size_t *pos, t_location *loc,
 	triangle->normal = triangle->edge1;
 	vec3_cross(&triangle->normal, triangle->edge2);
 	if (norm_vec3(triangle->normal) == 0)
-		err_line(line, gen_loc(loc, --(*pos), 0, 3), ERRCODE_COL_PTS_TRGL);
+		err_line(line, gen_loc(loc, --(*pos), 1, 3), ERRCODE_COL_PTS_TRGL);
 	normalize_vec3(&triangle->normal);
 	return (*loc);
 }

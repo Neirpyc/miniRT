@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 14:21:16 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 14:49:01 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 15:52:20 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@
 #  define ROTATE_STEP 0.05f
 # endif
 
+# ifndef CHUNK_PX
+#  define CHUNK_PX 64
+# endif
+
 extern pthread_t		*g_threads;
-extern pthread_cond_t	g_start_render_cond;
-extern pthread_cond_t	g_render_done_cond;
-extern pthread_mutex_t	g_start_render_mutex;
-extern pthread_mutex_t	g_render_done_mutex;
-extern atomic_int		g_asleep_threads;
+pthread_barrier_t		g_render_start_barrier;
+pthread_barrier_t		g_render_stop_barrier;
 extern atomic_long		g_current_point;
 extern t_camera			*g_camera;
-extern int				g_thread_count;
 
 void	move(t_render *rd, t_vec3 translation, t_vec3 rotation);
 

@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 15:20:49 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/20 17:25:44 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 13:06:39 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ double	plane_get_t(t_ray *ray,
 
 	denom = vec3_scalar(obj->plane->normal, ray->direction);
 	denom = get_plane_normal_int(intersection, obj->plane, denom);
-	if (denom <= 0)
+	if (denom < 0)
 		return (NAN);
 	aux = obj->plane->position;
 	vec3_sub_noret(&aux, ray->origin);
 	t = vec3_scalar(aux, intersection->normal) / denom;
-	if (t <= 0)
+	if (t < 0)
 		return (NAN);
 	intersection->intersection.x = t;
 	intersection->intersection.y = denom;

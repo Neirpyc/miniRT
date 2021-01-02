@@ -31,7 +31,7 @@ void	process_square(t_square *square)
 	aux = square->edge_2;
 	scale_vec3(&aux, 0.5);
 	vec3_sub_noret(&square->corner, aux);
-	square->side_squared = square->side * square->side;
+	square->side_squared = square->side * square->side - 1e-5;
 }
 
 static t_location	parse_first_part(size_t *pos, t_location *loc,

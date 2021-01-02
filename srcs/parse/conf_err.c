@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 16:52:15 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 19:14:35 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/01 15:52:12 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ void	highlight_words(char *line, ssize_t c_beg,
 			line[i] = '^';
 		if (!ft_isspace(line[i]))
 		{
-			if ((wd == w_beg && i != c_beg && i > c_beg)
-				|| (wd >= w_beg && wd <= w_end && i != c_beg && c_beg != -1))
+			if ((wd == w_beg && i > c_beg)
+				|| (wd >= w_beg && wd <= w_end && i != c_beg))
 				line[i] = '~';
-			else
+			else if (i != c_beg)
 				line[i] = ' ';
-			if (ft_isspace(line[i + 1]))
+			if (ft_isspace(line[i + 1]) && i + 1 != c_beg)
 				wd++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:12:12 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 19:22:12 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/01 20:47:06 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ static t_scene_parse	*new_scene(void)
 	t_scene_parse	*scene;
 
 	scene = gc_malloc(sizeof(t_scene_parse));
+	ft_memset(scene, 0, sizeof(t_scene_parse));
 	scene->scene = gc_malloc(sizeof(t_list_scene));
-	ft_memset(scene, sizeof(t_scene), 0);
+	ft_memset(scene->scene, 0, sizeof(t_list_scene));
 	scene->ambient_line = -1;
 	scene->resolution_line = -1;
 	scene->filter_line = -1;

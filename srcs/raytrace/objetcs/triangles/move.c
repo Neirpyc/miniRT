@@ -14,10 +14,13 @@
 
 void	move_triangle(t_vec3 translation, t_vec3 rotation, t_any_obj *obj)
 {
-	add_vec3(&obj->triangle->corner, translation);
+	double	tmp;
+
+	add_vec3(&obj->cylinder->position, translation);
 	rotation.x *= -1;
+	tmp = rotation.y;
 	rotation.y = -rotation.z;
-	rotation.z = 0;
+	rotation.z = tmp;
 	rotate_vec3(&obj->triangle->edge1, rotation);
 	rotate_vec3(&obj->triangle->edge2, rotation);
 	rotate_vec3(&obj->triangle->normal, rotation);

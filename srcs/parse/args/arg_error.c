@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:44:24 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 18:43:17 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/01 15:40:46 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ static size_t	write_args(int argc, char **argv,
 		if (i >= (int) * arg_begin && i <= arg_end)
 		{
 			if (len > largest_err)
-				largest_err++;
-			if (len > largest_space)
-				largest_space++;
+				largest_err = len;
 		}
+		else if (len > largest_space)
+			largest_space = len;
 		write(STDOUT_FILENO, argv[i], len);
 		write(STDOUT_FILENO, " ", (i == argc - 1 ? 0 : 1));
 		i++;

@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 13:09:49 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 14:49:01 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 15:46:02 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,10 @@ void	stop_threads(void *param)
 {
 	int	i;
 
-	(void)param;
-	pthread_mutex_lock(&g_start_render_mutex);
 	g_camera = NULL;
-	pthread_cond_broadcast(&g_start_render_cond);
-	pthread_mutex_unlock(&g_start_render_mutex);
+	pthread_barrier_wait(&g_render_start_barrier);
 	i = 0;
-	while (i < g_thread_count)
+	while (i < (int)param)
 	{
 		pthread_join(g_threads[i], NULL);
 		i++;

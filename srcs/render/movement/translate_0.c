@@ -45,7 +45,7 @@ void	move_left(t_render *rd)
 	t_vec3	rot;
 	t_vec3	trans;
 
-	rot.x = 1;
+	rot.x = 0;
 	rot.y = 0;
 	rot.z = 0;
 	trans.x = 0;

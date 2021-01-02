@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 20:40:57 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 18:42:24 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 16:34:44 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	parse_ambient(t_list *lines, size_t line_nb,
 	loc.line = line_nb;
 	ret = parse_float_01(line, pos, &scene->scene->ambient.strength);
 	err_line(line, gen_loc(&loc, *pos, 1, 1), ret);
-	scene->scene->ambient.strength = 1 / (pow((1 - pow(
-		scene->scene->ambient.strength, 1. / 10.)), 3)) - 1;
+	scene->scene->ambient.strength = 1 / (
+		pow((1 - pow(scene->scene->ambient.strength, 1. / 10.)), 3)) - 1;
 	ret = parse_rgb(line, pos, &scene->scene->ambient.color);
 	err_line(line, gen_loc(&loc, *pos, 2, 2), ret);
 	ret = parse_endl(line, pos);

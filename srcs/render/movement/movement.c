@@ -6,10 +6,12 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:33:44 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 17:37:56 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 12:33:11 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
+#include <float.h>
 #include "../render_int.h"
 #include "../../raytrace/raytrace_int.h"
 
@@ -33,11 +35,20 @@ static void	update_cam(t_camera *cam)
 
 static void	apply_trans(t_render *rd, t_vec3 *rotation, t_vec3 *tr)
 {
+	t_vec3	aux;
+
 	if (rd->mode == MODE_CAM)
 	{
 		add_vec3(&rd->scene->cameras.cameras.array[rd->cam_id].origin, *tr);
-		rotate_vec3(&rd->scene->cameras.cameras.array[rd->cam_id].normal,
-			*rotation);
+		aux = rd->scene->cameras.cameras.array[rd->cam_id].d_x;
+		scale_vec3(&aux, -rotation->z);
+		add_vec3(&rd->scene->cameras.cameras.array[rd->cam_id].normal,
+			aux);
+		aux = rd->scene->cameras.cameras.array[rd->cam_id].d_y;
+		scale_vec3(&aux, -rotation->x);
+		add_vec3(&rd->scene->cameras.cameras.array[rd->cam_id].normal,
+			aux);
+		normalize_vec3(&rd->scene->cameras.cameras.array[rd->cam_id].normal);
 		update_cam(&rd->scene->cameras.cameras.array[rd->cam_id]);
 	}
 	else

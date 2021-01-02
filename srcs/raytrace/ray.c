@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 22:32:04 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 18:09:40 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/01 18:58:54 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	fill_ray(t_ray *ray, t_camera *cam, t_scene *scene, t_vec2 *pos)
 	normalize_vec3(&ray->direction);
 	init_frgba_new_ray(&ray->color);
 	ray->bounces = cam->bounces + 1;
-	ray->invdir.x = 1 / ray->direction.x;
-	ray->invdir.y = 1 / ray->direction.y;
-	ray->invdir.z = 1 / ray->direction.z;
+	ray_set_dir(ray, &ray->direction);
 }
 
 void	average_components(t_ray *ray, t_intersection *intersection,
@@ -68,7 +66,7 @@ void	average_components(t_ray *ray, t_intersection *intersection,
 	dst = norm_vec3(*vec3_sub(&old_intersection, ray->origin)) + 1;
 	dst *= dst;
 	mix_colors(ray, diff, -vec3_scalar(ray->direction, intersection->normal)
-		*(1 - scene->objects.objects.objects[obj_id].material->spec_k) / dst);
+		 / dst);
 	add_colors(&ray->color, spec, fresnel / dst);
 }
 

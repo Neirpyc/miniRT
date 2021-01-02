@@ -26,6 +26,6 @@ int	parse_float_01(char *str, size_t *pos, double *d_01)
 		return (0);
 	while (*pos != 0 && !ft_isspace(str[*pos]))
 		(*pos)--;
-	(*pos)++;
+	(*pos)--;
 	return (ERRCODE_EXP_FP01);
 }
