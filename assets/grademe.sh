@@ -2,7 +2,7 @@
 
 #step(file.rt, message, stop, extra)
 step () {
-  header $2
+  header "$2"
   echo "=== $1 ==="
   cat $1
   printf ""
