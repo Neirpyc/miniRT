@@ -183,7 +183,9 @@ SEMB = assets/errors.bin
 EMB = $(SEMB:.bin=.o)
 MLX = minilibx-linux/libmlx.a
 TMP = tmp
-PROFRT = profile.rt tmp.rt
+PROFRT =	profile_default.rt profile_rev_n.rt profile_inside_sphere.rt profile_inside_cylinder.rt \
+			profile_inside_cone.rt profile_small_r.rt profile_invisible.rt profile_aa.rt \
+			profile_spec.rt profile_d_0.rt profile_d_1.rt profile_d_2.rt profile_lights.rt
 ASS_PROFRT = $(addprefix assets/,$(PROFRT))
 TMP_PROFRT = $(addprefix $(TMP)/,$(PROFRT))
 PROFRAW = $(TMP_PROFRT:.rt=.profraw)

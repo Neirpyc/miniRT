@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 12:12:43 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/30 15:55:11 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 20:15:10 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ inline void	checkerboard(t_vec3 *position, t_frgba *color)
 	unsigned int	state;
 
 	state = 0;
-	state ^= (unsigned int)fmod(fabs(position->x), 2 + 1e-10);
-	state ^= (unsigned int)fmod(fabs(position->y), 2 + 1e-10);
-	state ^= (unsigned int)fmod(fabs(position->z), 2 + 1e-10);
-	state ^= (unsigned int)(position->x > 0);
-	state ^= (unsigned int)(position->y > 0);
-	state ^= (unsigned int)(position->z > 0);
+	state ^= (unsigned int)fmod(fabs(position->x - 1e-5), 2 + 1e-10);
+	state ^= (unsigned int)fmod(fabs(position->y - 1e-5), 2 + 1e-10);
+	state ^= (unsigned int)fmod(fabs(position->z - 1e-5), 2 + 1e-10);
+	state ^= (unsigned int)(position->x - 1e5 > 0);
+	state ^= (unsigned int)(position->y - 1e5 > 0);
+	state ^= (unsigned int)(position->z - 1e5 > 0);
 	if (state > 0)
 	{
 		color->red = 0;
