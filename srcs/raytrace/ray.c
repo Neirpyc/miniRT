@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 22:32:04 by caugier           #+#    #+#             */
-/*   Updated: 2021/01/01 18:58:54 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/02 19:14:57 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,29 @@ void	average_components(t_ray *ray, t_intersection *intersection,
 	add_colors(&ray->color, spec, fresnel / dst);
 }
 
+static inline void	get_normal(t_ray *ray, t_scene *scene,
+	size_t i, t_intersection *in)
+{
+	scene->objects.objects.objects[i].functions.normal(ray,
+		in, &scene->objects.objects.objects[i].object);
+	if (vec3_scalar(ray->direction, in->normal) > 0)
+		vec_nan(&in->intersection);
+}
+
+static inline int	no_intersection(t_ray *ray, int max_bounces,
+	t_intersection *in)
+{
+	if (vec3_is_nan(in->intersection))
+	{
+		if (ray->bounces == max_bounces)
+			empty_frgba(&ray->color);
+		else
+			init_frgba(&ray->color);
+		return (-1);
+	}
+	return (0);
+}
+
 void	simulate_ray(t_ray *ray, t_scene *scene, int max_bounces)
 {
 	size_t			i;
@@ -83,15 +106,10 @@ void	simulate_ray(t_ray *ray, t_scene *scene, int max_bounces)
 		return ;
 	}
 	get_best_intersection(scene, ray, &in, &i);
-	if (vec3_is_nan(in.intersection))
-	{
-		if (ray->bounces == max_bounces)
-			empty_frgba(&ray->color);
-		else
-			init_frgba(&ray->color);
+	if (no_intersection(ray, max_bounces, &in) < 0)
 		return ;
-	}
-	scene->objects.objects.objects[i].functions.normal(ray,
-		&in, &scene->objects.objects.objects[i].object);
+	get_normal(ray, scene, i, &in);
+	if (no_intersection(ray, max_bounces, &in) < 0)
+		return ;
 	average_components(ray, &in, i, scene);
 }
