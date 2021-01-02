@@ -57,6 +57,7 @@ step scenes/grademe/cameras.rt "Cameras" 0
 step scenes/grademe/shadow.rt "Simple shadow" 0
 step scenes/grademe/shadows.rt "Complex shadows" 0
 step scenes/grademe/bonus_objs.rt "BONUS - Objects" 0
+step scenes/grademe/inside.rt "Inside" 0
 step scenes/grademe/bonus_p_light.rt "BONUS - Parallel lights" 0
 step scenes/grademe/bonus_disruptions.rt "BONUS - Disruptions" 0
 step scenes/grademe/filter_none.rt "BONUS - Filter none" 0
