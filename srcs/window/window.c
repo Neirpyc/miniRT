@@ -99,5 +99,6 @@ void	loop_window(t_render *rd)
 {
 	mlx_hook(g_window, ClientMessage, NoEventMask, x_exit, 0);
 	mlx_key_hook(g_window, button_press, (void *)rd);
+	mlx_expose_hook(g_window, redraw, NULL);
 	mlx_loop(g_mlx);
 }

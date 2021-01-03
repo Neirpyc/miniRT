@@ -15,6 +15,7 @@ SRC =	srcs/lists/list_size.c \
         srcs/lists/list_push_front.c \
         srcs/lists/list_pop.c \
         srcs/window/window.c \
+        srcs/window/redraw.c \
         srcs/window/filters/blue.c \
         srcs/window/filters/green.c \
         srcs/window/filters/red.c \

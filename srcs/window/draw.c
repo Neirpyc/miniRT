@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 18:36:32 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 19:43:32 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/03 13:36:20 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,38 @@ void	init_img_buffer(int width, int height)
 			g_image_buffer.endian = 0;
 		}
 		g_image_buffer.width = width;
+		black_buffer(height);
+	}
+}
+
+void	black_buffer(int height)
+{
+	t_rgba	color;
+	int	x;
+	int	y;
+	size_t	size;
+	char	*pos;
+
+	color.rgba.red = 255;
+	color.rgba.green = 0;
+	color.rgba.blue = 0;
+	color.rgba.alpha = 255;
+	if (g_mlx != NULL)
+		color.nbr = mlx_get_color_value(g_mlx, color.nbr);
+	size = g_image_buffer.bits_per_pixel / 8;
+	pos = g_image_buffer.address;
+	y = 0;
+	while (y < height)
+	{
+		x = 0;
+		while (x < g_image_buffer.width)
+		{
+			ft_memcpy(pos, &color.nbr, size);
+			pos += size;
+			x++;
+		}
+		y++;
+		pos += g_image_buffer.bytes_per_line;
 	}
 }
 

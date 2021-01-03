@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 22:31:02 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 19:47:29 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/03 13:34:56 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ typedef void				(*t_interaction_func)(t_render *render);
 extern void					*g_mlx;
 extern void					*g_window;
 extern t_mlx_image_wrapper	g_image_buffer;
+void						black_buffer(int height);
+int							redraw(void *param);
 
 #endif
