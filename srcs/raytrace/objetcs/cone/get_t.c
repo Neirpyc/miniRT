@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 12:40:36 by caugier           #+#    #+#             */
-/*   Updated: 2020/12/31 21:22:15 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/03 23:54:48 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static inline int	cone_intersection_int(t_ray *ray, double t,
 	dst = norm_vec3(aux);
 	scale_vec3(&aux, 1 / dst);
 	if (fabs(vec3_scalar(aux, cone->direction) - cone->cos)
-		< DBL_EPSILON * 100000 && dst < cone->max_dst)
+		< 1e-5 && dst < cone->max_dst)
 		return (1);
 	return (0);
 }
