@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 18:36:32 by caugier           #+#    #+#             */
-/*   Updated: 2021/01/03 13:36:20 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/03 13:41:07 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	black_buffer(int height)
 	size_t	size;
 	char	*pos;
 
-	color.rgba.red = 255;
+	color.rgba.red = 0;
 	color.rgba.green = 0;
 	color.rgba.blue = 0;
 	color.rgba.alpha = 255;

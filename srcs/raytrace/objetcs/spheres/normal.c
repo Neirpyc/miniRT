@@ -23,6 +23,7 @@ t_intersection	*get_sphere_normal(t_ray *ray,
 	vec3_sub_noret(&aux, obj->sphere->position);
 	if (intersection->normal.x > 0 && intersection->normal.y < 0)
 		scale_vec3(&aux, -1);
+	normalize_vec3(&aux);
 	apply_normal_disruption(&aux, &intersection->intersection,
 		obj->sphere->material->disruption);
 	intersection->normal = aux;

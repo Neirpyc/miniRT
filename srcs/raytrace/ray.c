@@ -6,7 +6,7 @@
 /*   By: caugier <caugier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 22:32:04 by caugier           #+#    #+#             */
-/*   Updated: 2021/01/02 19:14:57 by caugier          ###   ########.fr       */
+/*   Updated: 2021/01/03 22:54:18 by caugier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	average_components(t_ray *ray, t_intersection *intersection,
 	dst *= dst;
 	mix_colors(ray, diff, -vec3_scalar(ray->direction, intersection->normal)
 		 / dst);
-	add_colors(&ray->color, spec, fresnel / dst);
+	add_colors(&ray->color, spec,  fresnel / dst);
 }
 
 static inline void	get_normal(t_ray *ray, t_scene *scene,

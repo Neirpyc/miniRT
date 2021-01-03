@@ -30,6 +30,7 @@ t_intersection	*get_cone_normal(t_ray *ray,
 	vec3_sub_noret(&intersection->normal, aux);
 	if (vec3_scalar(ray->direction, intersection->normal) > 0)
 		scale_vec3(&intersection->normal, -1);
+	normalize_vec3(&intersection->normal);
 	apply_normal_disruption(&intersection->normal, &intersection->intersection,
 		obj->cone->material->disruption);
 	return (intersection);
