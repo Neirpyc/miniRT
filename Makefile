@@ -225,6 +225,8 @@ $(TMP):
 
 slow: $(NAME)
 
+bonus: $(NAME)
+
 clean: cleantmp
 	$(RM) $(OBJ) $(EMB)
 	cd minilibx-linux && $(MAKE) clean
@@ -259,4 +261,4 @@ $(EMB) : %.o: %.bin
 $(MLX) :
 	cd minilibx-linux && $(MAKE)
 
-.PHONY: all clean fclean re cleantmp slow fast benchmark grademe
+.PHONY: all clean fclean re cleantmp slow fast benchmark grademe bonus
