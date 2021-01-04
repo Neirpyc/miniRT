@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -I./minilibx-linux
 LD = ld
 MAKE = make
 RM = rm -rf
-AFLAGS = -lXext -lX11 -lm -lpthread -flto=thin
+AFLAGS = -lXext -lX11 -lm -lpthread
 BUILDFLAGS = -mllvm -polly
 OPTIMIZATION = -O3 -fno-stack-protector \
 -fno-math-errno -funsafe-math-optimizations -fassociative-math -freciprocal-math \
@@ -199,7 +199,7 @@ $(NAME): $(OBJ) $(EMB) $(MLX)
 	$(CC) $(CFLAGS)	$(OBJ) $(MLX) $(EMB) -o $(NAME) $(AFLAGS)
 
 fast: $(SRC) $(EMB) $(MLX) $(PROF)
-	$(CC) $(CFLAGS) $(OPTIMIZATION) -fprofile-instr-use=$(PROF) \
+	$(CC) $(CFLAGS) $(OPTIMIZATION) -flto=thin -fprofile-instr-use=$(PROF)  \
 	$(SRC) $(MLX) $(BUILDFLAGS) $(EMB) -o $(NAME) $(AFLAGS)
 
 $(PROF): $(PROFRAW)
@@ -217,7 +217,7 @@ $(TMP_PROFRT): $(ASS_PROFRT)
 	cp $(ASS_PROFRT) $(TMP)
 
 $(PROFBIN): $(SRC) $(EMB) $(MLX) srcs/errors/errors.o $(TMP)
-	$(CC) $(CFLAGS) $(OPTIMIZATION) -fprofile-instr-generate\
+	$(CC) $(CFLAGS) $(OPTIMIZATION) -flto=thin -fprofile-instr-generate\
     $(SRC) $(MLX) $(EMB) $(BUILDFLAGS) -o $(PROFBIN) $(AFLAGS)
 
 $(TMP):
@@ -251,7 +251,7 @@ $(TMP)/$(NAME): $(NAME)
 	@cp $(NAME) $(TMP)
 
 $(OBJ) : %.o: %.c
-	$(CC) $(CFLAGS) $(OPTIMIZATION) $(BUILDFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(EMB) : %.o: %.bin
 	$(LD) -r -b binary $< -o $@
